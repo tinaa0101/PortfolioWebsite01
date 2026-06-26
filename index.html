@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinaa Joshi — Wellness, Psychology & AI Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --white:#FFFFFF;
+    --sage:#96CEB4;
+    --sage-deep:#5E9A82;
+    --gold:#A66E38;
+    --gold-light:#FFEEAD;
+    --ink:#3A332C;
+    --ink-soft:#6B6359;
+    --line:#E6DCC8;
+    --shadow: 0 12px 30px -12px rgba(58,51,44,0.18);
+    --radius: 18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  a{text-decoration:none;color:inherit;}
+  img{display:block;max-width:100%;}
+  .container{max-width:1100px;margin:0 auto;padding:0 28px;}
+  section{padding:110px 0;position:relative;}
+  .eyebrow{
+    font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--sage-deep);font-weight:600;margin-bottom:14px;display:inline-block;
+  }
+  h2.section-title{
+    font-size:clamp(1.9rem,3.4vw,2.7rem);
+    font-weight:500;
+    margin-bottom:18px;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .section-intro{max-width:640px;color:var(--ink-soft);font-size:1.05rem;margin-bottom:56px;}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(251,246,236,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1100px;margin:0 auto;padding:16px 28px;
+  }
+  .logo{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;color:var(--ink);}
+  .logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:30px;list-style:none;}
+  .nav-links a{
+    font-size:.92rem;color:var(--ink-soft);font-weight:500;position:relative;padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-3px;width:0;height:2px;background:var(--gold);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding-top:120px;padding-bottom:60px;
+    background:
+      radial-gradient(circle at 85% 18%, rgba(150,206,180,0.28), transparent 55%),
+      radial-gradient(circle at 8% 85%, rgba(255,238,173,0.55), transparent 50%),
+      var(--cream);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;
+  }
+  .hero-eyebrow{
+    font-size:.95rem;color:var(--gold);font-weight:600;letter-spacing:.04em;margin-bottom:22px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--sage-deep);}
+  .hero h1{
+    font-size:clamp(2.3rem,4.6vw,3.6rem);
+    font-weight:500;line-height:1.12;letter-spacing:-0.015em;margin-bottom:24px;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold);font-weight:500;}
+  .hero p.lede{
+    font-size:1.12rem;color:var(--ink-soft);max-width:480px;margin-bottom:38px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gold);color:var(--white);
+    padding:15px 32px;border-radius:50px;font-weight:600;font-size:.96rem;
+    border:none;cursor:pointer;
+    box-shadow:0 10px 24px -8px rgba(166,110,56,0.55);
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 16px 30px -8px rgba(166,110,56,0.6);background:#8f5d2c;}
+  .btn:focus-visible, a:focus-visible, button:focus-visible{outline:3px solid var(--sage-deep);outline-offset:3px;}
+
+  .hero-photo-wrap{
+    position:relative;display:flex;justify-content:center;
+  }
+  .hero-photo-ring{
+    position:relative;width:min(360px,80vw);aspect-ratio:1/1;
+  }
+  .hero-photo-ring img{
+    width:100%;height:100%;object-fit:cover;border-radius:50%;
+    border:6px solid var(--white);
+    box-shadow:var(--shadow);
+    position:relative;z-index:2;
+  }
+  .hero-photo-ring::before{
+    content:'';position:absolute;inset:-16px;border-radius:50%;
+    border:1.5px dashed var(--sage-deep);opacity:.55;
+    animation:spin 38s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-photo-ring::before{animation:none;} }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .hero-badge{
+    position:absolute;bottom:-6px;right:8px;background:var(--white);
+    padding:10px 16px;border-radius:14px;box-shadow:var(--shadow);
+    font-size:.82rem;font-weight:600;color:var(--ink);z-index:3;
+    display:flex;align-items:center;gap:8px;
+  }
+  .hero-badge .leaf{color:var(--sage-deep);font-size:1rem;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start;}
+  .about-card{
+    background:var(--white);border-radius:var(--radius);padding:38px;box-shadow:var(--shadow);
+    border:1px solid var(--line);
+  }
+  .about-card .tag{
+    display:inline-block;background:var(--gold-light);color:var(--gold);
+    font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:50px;margin-bottom:18px;
+  }
+  .about-card p{color:var(--ink-soft);font-size:1.02rem;}
+  .about-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px;}
+  .stat{background:var(--cream);border-radius:14px;padding:18px;border:1px solid var(--line);}
+  .stat .num{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--sage-deep);font-weight:600;}
+  .stat .lab{font-size:.82rem;color:var(--ink-soft);}
+
+  /* JOURNEY - signature winding path */
+  .journey-wrap{position:relative;}
+  .journey-path{
+    position:relative;padding-left:6px;
+  }
+  .journey-path::before{
+    content:'';position:absolute;left:19px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(to bottom, var(--sage) 0%, var(--gold) 100%);
+    border-radius:2px;
+  }
+  .journey-item{
+    position:relative;padding-left:62px;padding-bottom:46px;
+  }
+  .journey-item:last-child{padding-bottom:0;}
+  .journey-item::before{
+    content:'';position:absolute;left:10px;top:2px;width:20px;height:20px;border-radius:50%;
+    background:var(--white);border:3px solid var(--sage-deep);z-index:2;
+  }
+  .journey-item.gold::before{border-color:var(--gold);}
+  .journey-item h3{font-size:1.18rem;font-weight:500;margin-bottom:6px;color:var(--ink);}
+  .journey-item p{color:var(--ink-soft);font-size:.95rem;}
+  .journey-item .stage-tag{
+    font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sage-deep);
+    font-weight:700;margin-bottom:4px;display:block;
+  }
+  .journey-item.gold .stage-tag{color:var(--gold);}
+
+  /* SKILLS */
+  .skill-group{margin-bottom:54px;}
+  .skill-group h3{
+    font-size:1.05rem;font-weight:600;margin-bottom:22px;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  .skill-group h3 .bar{width:26px;height:3px;background:var(--gold);border-radius:3px;display:inline-block;}
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
+  .skill-card{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:20px;display:flex;align-items:center;gap:14px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--sage);}
+  .skill-card .icon{
+    width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:var(--gold-light);font-size:1.2rem;flex-shrink:0;
+  }
+  .skill-card span.label{font-size:.92rem;font-weight:500;color:var(--ink);}
+  .skill-card.learning{border-style:dashed;border-color:var(--sage-deep);background:rgba(150,206,180,0.08);}
+  .skill-card.learning .icon{background:rgba(150,206,180,0.35);}
+  .skill-card.learning::after{
+    content:'In progress';position:static;font-size:.66rem;color:var(--sage-deep);font-weight:700;
+    margin-left:auto;text-transform:uppercase;letter-spacing:.04em;
+  }
+
+  /* EDUCATION */
+  .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+  .edu-card{
+    background:var(--white);border-radius:var(--radius);padding:28px;border:1px solid var(--line);
+    box-shadow:var(--shadow);transition:transform .25s ease;
+  }
+  .edu-card:hover{transform:translateY(-5px);}
+  .edu-card .icon{font-size:1.7rem;margin-bottom:14px;display:block;}
+  .edu-card h3{font-size:1.02rem;font-weight:600;margin-bottom:10px;line-height:1.3;}
+  .badge{
+    font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:5px 12px;border-radius:50px;display:inline-block;
+  }
+  .badge.done{background:rgba(150,206,180,0.3);color:var(--sage-deep);}
+  .badge.progress{background:var(--gold-light);color:var(--gold);}
+
+  /* PASSIONS */
+  .passion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;}
+  .passion-card{
+    background:var(--white);border-radius:16px;padding:26px 20px;text-align:center;
+    border:1px solid var(--line);cursor:default;position:relative;overflow:hidden;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .passion-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .passion-card .icon{font-size:2rem;margin-bottom:12px;}
+  .passion-card h4{font-size:.98rem;font-weight:600;margin-bottom:8px;}
+  .passion-card .desc{
+    font-size:.84rem;color:var(--ink-soft);max-height:0;opacity:0;overflow:hidden;
+    transition:max-height .35s ease, opacity .35s ease;
+  }
+  .passion-card:hover .desc{max-height:80px;opacity:1;margin-top:6px;}
+
+  /* CURRENT FOCUS */
+  .focus-section{
+    background:linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
+    border-radius:28px;padding:64px 56px;color:var(--white);
+    position:relative;overflow:hidden;
+  }
+  .focus-section::before{
+    content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+    background:rgba(255,255,255,0.08);border-radius:50%;
+  }
+  .focus-section h2{color:var(--white);}
+  .focus-section p{font-size:1.15rem;max-width:640px;color:rgba(255,255,255,0.92);}
+  .focus-section .eyebrow{color:var(--gold-light);}
+
+  /* CONTACT */
+  .contact-icons-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:680px;margin-top:20px;
+  }
+  .contact-icon-card{
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+    background:var(--cream);border:1px solid var(--line);border-radius:18px;
+    padding:30px 14px;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .contact-icon-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);background:var(--white);}
+  .ic-circle{
+    width:54px;height:54px;border-radius:50%;background:var(--gold-light);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;
+    transition:background .25s ease, color .25s ease;
+  }
+  .contact-icon-card:hover .ic-circle{background:var(--gold);color:var(--white);}
+  .ic-label{font-size:.85rem;font-weight:600;color:var(--ink);}
+
+  footer{
+    text-align:center;padding:36px 20px;color:var(--ink-soft);font-size:.85rem;
+    border-top:1px solid var(--line);
+  }
+  footer span{color:var(--gold);}
+
+  @media (max-width:860px){
+    .hero-grid, .about-grid{grid-template-columns:1fr;}
+    .hero-grid{text-align:left;}
+    .hero-photo-wrap{order:-1;margin-bottom:20px;}
+    .focus-section{padding:44px 28px;}
+    .contact-icons-row{grid-template-columns:repeat(2,1fr);max-width:360px;}
+    .nav-links{
+      gap:14px;font-size:.85rem;flex-wrap:wrap;justify-content:flex-end;
+    }
+  }
+  @media (max-width:480px){
+    section{padding:80px 0;}
+    .about-card, form{padding:24px;}
+    .focus-section{padding:36px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home" class="logo">Tinaa <span>Joshi</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow"><span class="dot"></span>WELLNESS &middot; PSYCHOLOGY &middot; AI &middot; <em>and more</em></div>
+      <h1>Creating balance between wellness, learning, family, and <em>personal growth.</em></h1>
+      <p class="lede">A lifelong learner passionate about psychology, nutrition, yoga, and the potential of AI to improve everyday life.</p>
+      <a href="#contact" class="btn">Chai Pe Charcha?</a>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <img src="profile.jpg" alt="Portrait of Tinaa Joshi">
+        <div class="hero-badge"><span class="leaf">&#127807;</span> Multipotentialite at heart</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow">About Me</span>
+        <h2 class="section-title">A mind built for many disciplines</h2>
+        <div class="about-stats">
+          <div class="stat"><div class="num">10+</div><div class="lab">Years in IT &amp; Project Management</div></div>
+          <div class="stat"><div class="num">RYT-200</div><div class="lab">Certified Yoga Instructor</div></div>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <span class="tag">M-Type Mind &middot; Multipotentialite</span>
+        <p>I'm not just a homemaker — I have a background in Commerce, HR, Project Management, and UI/UX Design. I see myself as a multipotentialite: someone wired for divergent thinking and rapid cross-disciplinary learning.</p><br>
+        <p>I'm currently pursuing an MA in Psychology and a Diploma in Nutrition, and I'm a certified Yoga instructor. I'm deeply curious about human behaviour, wellness, and how technology and AI can support personal growth, education, and everyday problem-solving.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" style="background:var(--white);">
+  <div class="container">
+    <span class="eyebrow reveal">My Journey</span>
+    <h2 class="section-title reveal">A winding, deliberate path</h2>
+    <p class="section-intro reveal">Every stage built on the last — not a straight line, but a rooted one.</p>
+    <div class="journey-path">
+      <div class="journey-item reveal">
+        <span class="stage-tag">Foundation</span>
+        <h3>Commerce &amp; Business Education</h3>
+        <p>Built a structured foundation in business fundamentals and analytical thinking.</p>
+      </div>
+      <div class="journey-item reveal">
+        <span class="stage-tag">Specialisation</span>
+        <h3>Diploma in HRM</h3>
+        <p>Deepened understanding of people, organisations, and human dynamics at work.</p>
+      </div>
+      <div class="journey-item reveal">
+        <span class="stage-tag">Practice</span>
+        <h3>Business Consultant in IT</h3>
+        <p>Spent a decade in IT project management and conversational AI design — mapping workflows and dialogue flows for real users.</p>
+      </div>
+      <div class="journey-item reveal">
+        <span class="stage-tag">Practice</span>
+        <h3>UI/UX Certification</h3>
+        <p>Picked up design fundamentals — translating ideas into clear, usable interfaces.</p>
+      </div>
+      <div class="journey-item reveal">
+        <span class="stage-tag">Reinvention</span>
+        <h3>Homemaker &amp; Family Manager</h3>
+        <p>Took on the complex, ongoing work of running a household and supporting a family's growth.</p>
+      </div>
+      <div class="journey-item gold reveal">
+        <span class="stage-tag">Wellness</span>
+        <h3>Yoga Certification (RYT-200)</h3>
+        <p>Trained formally in yoga, grounding a long-held interest in mindful movement and wellbeing.</p>
+      </div>
+      <div class="journey-item gold reveal">
+        <span class="stage-tag">Wellness</span>
+        <h3>Diploma in Nutrition</h3>
+        <p>Pursuing a deeper, evidence-based understanding of food, body, and balance.</p>
+      </div>
+      <div class="journey-item gold reveal">
+        <span class="stage-tag">Mind</span>
+        <h3>MA Psychology (Ongoing)</h3>
+        <p>Studying human behaviour formally — the discipline behind a lifelong curiosity.</p>
+      </div>
+      <div class="journey-item gold reveal">
+        <span class="stage-tag">Horizon</span>
+        <h3>Exploring AI &amp; Digital Innovation</h3>
+        <p>Bringing it all together: using AI to support learning, wellness, and meaningful work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <span class="eyebrow reveal">Skills &amp; Expertise</span>
+    <h2 class="section-title reveal">What I bring to the table</h2>
+    <p class="section-intro reveal">A blend of professional discipline, life-tested capability, and active curiosity.</p>
+
+    <div class="skill-group reveal">
+      <h3><span class="bar"></span>Professional Skills</h3>
+      <div class="skill-grid">
+        <div class="skill-card"><div class="icon">&#128202;</div><span class="label">Project Management</span></div>
+        <div class="skill-card"><div class="icon">&#129309;</div><span class="label">Human Resources</span></div>
+        <div class="skill-card"><div class="icon">&#129505;</div><span class="label">Team Coordination</span></div>
+        <div class="skill-card"><div class="icon">&#128172;</div><span class="label">Communication</span></div>
+        <div class="skill-card"><div class="icon">&#127912;</div><span class="label">UI/UX Fundamentals</span></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <h3><span class="bar"></span>Personal &amp; Life Skills</h3>
+      <div class="skill-grid">
+        <div class="skill-card"><div class="icon">&#127968;</div><span class="label">Household Operations</span></div>
+        <div class="skill-card"><div class="icon">&#128176;</div><span class="label">Budget Planning</span></div>
+        <div class="skill-card"><div class="icon">&#127881;</div><span class="label">Event Coordination</span></div>
+        <div class="skill-card"><div class="icon">&#129518;</div><span class="label">Problem Solving</span></div>
+        <div class="skill-card"><div class="icon">&#127807;</div><span class="label">Adaptability</span></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <h3><span class="bar"></span>Currently Acquiring</h3>
+      <div class="skill-grid">
+        <div class="skill-card learning"><div class="icon">&#129812;</div><span class="label">Nutrition</span></div>
+        <div class="skill-card learning"><div class="icon">&#129504;</div><span class="label">Psychology</span></div>
+        <div class="skill-card learning"><div class="icon">&#129302;</div><span class="label">AI Tools</span></div>
+        <div class="skill-card learning"><div class="icon">&#128221;</div><span class="label">Digital Content Creation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="passions" style="background:var(--white);">
+  <div class="container">
+    <span class="eyebrow reveal">Passions &amp; Interests</span>
+    <h2 class="section-title reveal">What fills my cup</h2>
+    <div class="passion-grid reveal">
+      <div class="passion-card"><div class="icon">&#129496;</div><h4>Yoga &amp; Wellness</h4><div class="desc">Mindful movement and breath as daily practice.</div></div>
+      <div class="passion-card"><div class="icon">&#127856;</div><h4>Baking &amp; Recipes</h4><div class="desc">Creating recipes that nourish and delight.</div></div>
+      <div class="passion-card"><div class="icon">&#127793;</div><h4>Personal Development</h4><div class="desc">Always working on becoming a little better.</div></div>
+      <div class="passion-card"><div class="icon">&#129302;</div><h4>Artificial Intelligence</h4><div class="desc">Exploring AI as a tool for everyday growth.</div></div>
+      <div class="passion-card"><div class="icon">&#127891;</div><h4>Teaching &amp; Mentoring</h4><div class="desc">Sharing what I learn with others, generously.</div></div>
+      <div class="passion-card"><div class="icon">&#128131;</div><h4>Kathak Dance</h4><div class="desc">Classical dance as discipline and expression.</div></div>
+      <div class="passion-card"><div class="icon">&#128214;</div><h4>Reading &amp; Learning</h4><div class="desc">A book, always, on more than one subject.</div></div>
+      <div class="passion-card"><div class="icon">&#10037;</div><h4>Astrology &amp; Vaastu</h4><div class="desc">Reading patterns in the stars and in spaces.</div></div>
+      <div class="passion-card"><div class="icon">&#127807;</div><h4>Home Gardening</h4><div class="desc">Growing something green, slowly and patiently.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="focus">
+  <div class="container">
+    <div class="focus-section reveal">
+      <span class="eyebrow">What I'm Exploring Now</span>
+      <h2 class="section-title">The intersection of AI and everyday growth</h2>
+      <p>I am currently exploring how artificial intelligence can help simplify daily life, support learning, improve productivity, and create meaningful opportunities for individuals seeking growth and reinvention.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--white);">
+  <div class="container">
+    <span class="eyebrow reveal">Get in Touch</span>
+    <h2 class="section-title reveal">Coffee? Matcha? Chai Pe Charcha?</h2>
+    <p class="section-intro reveal">Open to conversations on wellness, psychology, AI, and lifelong learning — feel free to reach out.</p>
+    <div class="contact-icons-row reveal">
+      <a href="mailto:tinabajajjoshi@gmail.com" class="contact-icon-card" aria-label="Email">
+        <span class="ic-circle">&#9993;</span>
+        <span class="ic-label">Email</span>
+      </a>
+      <a href="https://linkedin.com/in/tinaajoshi" target="_blank" rel="noopener" class="contact-icon-card" aria-label="LinkedIn">
+        <span class="ic-circle">in</span>
+        <span class="ic-label">LinkedIn</span>
+      </a>
+      <a href="https://www.instagram.com/tinaa.toldyouso" target="_blank" rel="noopener" class="contact-icon-card" aria-label="Instagram">
+        <span class="ic-circle">&#128247;</span>
+        <span class="ic-label">Instagram</span>
+      </a>
+      <a href="https://wa.me/919949346462" target="_blank" rel="noopener" class="contact-icon-card" aria-label="WhatsApp">
+        <span class="ic-circle">&#128241;</span>
+        <span class="ic-label">WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 <span>Tinaa Joshi</span> | Built with curiosity, learning, and purpose.
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
